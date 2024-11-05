@@ -22,16 +22,14 @@ public class GetPatient : GAction
         }
 
         GWorld.Instance.GetWorld().ModifyState("FreeCubicle", -1);
-
         return true;
     }
 
     public override bool PostPerform()
     {
         GWorld.Instance.GetWorld().ModifyState("Waiting", -1);
-        if (target != null)
-            GWorld.Instance.AddPatient(target);
-
+        if (target)
+            target.GetComponent<GAgent>().inventory.AddItem(resource);
         return true;
     }
 }

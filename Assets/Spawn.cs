@@ -10,26 +10,23 @@ public class Spawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numPatients = 25;
-        // for (int i = 0; i < numPatients; i++)
-        // {
-        //     SpawnPatient();
-        // }
+        for (int i = 0; i < numPatients; i++)
+        {
+            Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
+        }
 
-        InvokeRepeating(nameof(SpawnPatient), 5, 15);
+        Invoke("SpawnPatient", 5);
     }
 
     void SpawnPatient()
     {
         Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
-        // Invoke("SpawnPatient", Random.Range(2, 10));
+        Invoke("SpawnPatient", Random.Range(2, 10));
     }
-
-
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }

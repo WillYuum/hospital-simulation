@@ -9,7 +9,7 @@ public class Nurse : GAgent
     {
         base.Start();
         SubGoal s1 = new SubGoal("treatPatient", 1, true);
-        goals.Add(s1, 3);
+        goals.Add(s1, 3); 
     }
 
 }
