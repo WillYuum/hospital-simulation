@@ -1,5 +1,13 @@
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class WorldState
+{
+    public string key;
+    public int value;
+}
 
 public class WorldStates
 {
@@ -15,7 +23,7 @@ public class WorldStates
         return states.ContainsKey(key);
     }
 
-    public void AddState(string key, int value)
+    void AddState(string key, int value)
     {
         states.Add(key, value);
     }
@@ -26,45 +34,28 @@ public class WorldStates
         {
             states[key] += value;
             if (states[key] <= 0)
-            {
                 RemoveState(key);
-            }
         }
         else
-        {
             states.Add(key, value);
-        }
     }
 
     public void RemoveState(string key)
     {
         if (states.ContainsKey(key))
-        {
             states.Remove(key);
-        }
     }
 
     public void SetState(string key, int value)
     {
         if (states.ContainsKey(key))
-        {
             states[key] = value;
-        }
         else
-        {
             states.Add(key, value);
-        }
     }
 
     public Dictionary<string, int> GetStates()
     {
         return states;
     }
-}
-
-[System.Serializable]
-public class WorldState
-{
-    public string key;
-    public int value;
 }

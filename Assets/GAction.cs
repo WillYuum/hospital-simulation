@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,13 +9,10 @@ public abstract class GAction : MonoBehaviour
     public float cost = 1.0f;
     public GameObject target;
     public string targetTag;
-    public float duration = 0f;
-
-    //Made these 2 variables to be tweaked in the inspector
+    public float duration = 0;
     public WorldState[] preConditions;
     public WorldState[] afterEffects;
     public NavMeshAgent agent;
-
 
     public Dictionary<string, int> preconditions;
     public Dictionary<string, int> effects;
@@ -29,27 +27,23 @@ public abstract class GAction : MonoBehaviour
         effects = new Dictionary<string, int>();
     }
 
-
-    void Awake()
+    public void Awake()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
+        agent = this.gameObject.GetComponent<NavMeshAgent>();
+
         if (preConditions != null)
-        {
             foreach (WorldState w in preConditions)
             {
                 preconditions.Add(w.key, w.value);
             }
-        }
 
         if (afterEffects != null)
-        {
             foreach (WorldState w in afterEffects)
             {
                 effects.Add(w.key, w.value);
             }
-        }
+            
     }
-
 
     public bool IsAchievable()
     {
@@ -61,9 +55,7 @@ public abstract class GAction : MonoBehaviour
         foreach (KeyValuePair<string, int> p in preconditions)
         {
             if (!conditions.ContainsKey(p.Key))
-            {
                 return false;
-            }
         }
         return true;
     }
