@@ -69,5 +69,5 @@ public abstract class GAction : MonoBehaviour
     }
 
     public abstract bool PrePerform();
-    public abstract void PostPerform();
+    public abstract bool PostPerform();
 }
