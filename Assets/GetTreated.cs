@@ -6,6 +6,7 @@ public class GetTreated : GAction
 {
     public override bool PrePerform()
     {
+        Debug.Log("Starting GetTreated");
         target = inventory.FindItemWithTag("Cubicle");
         if (target == null)
             return false;
@@ -14,7 +15,9 @@ public class GetTreated : GAction
 
     public override bool PostPerform()
     {
-        GWorld.Instance.GetWorld().ModifyState("isTreated", 1);
+        Debug.Log("Finished GetTreated");
+        GWorld.Instance.GetWorld().ModifyState("Treated", 1);
+        beliefs.ModifyState("isCured", 1);
         inventory.RemoveItem(target);
         return true;
     }

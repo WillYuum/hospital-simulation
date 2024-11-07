@@ -367,11 +367,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281a3663957c14f49911588544d0e562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: Action
+  actionName: Go To Cubicle
   cost: 1
   target: {fileID: 0}
   targetTag: 
-  duration: 0
+  duration: 10
   preConditions:
   - key: patientPickedup
     value: 0
@@ -380,6 +380,19 @@ MonoBehaviour:
     value: 0
   agent: {fileID: 0}
   running: 0
+--- !u!114 &156335541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156335535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3def950bfff4b41a3e666fc43dd0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisAgent: {fileID: 156335538}
 --- !u!1 &306721101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,7 +2034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1182480219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4613,15 +4626,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4695191399491926586, guid: 0fce119190bf0449caee6a98f2307710,
+        type: 3}
+      propertyPath: preConditions.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695191399491926586, guid: 0fce119190bf0449caee6a98f2307710,
+        type: 3}
+      propertyPath: afterEffects.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4695191399491926587, guid: 0fce119190bf0449caee6a98f2307710,
         type: 3}
-      propertyPath: duration
-      value: 2
+      propertyPath: preConditions.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695191399491926587, guid: 0fce119190bf0449caee6a98f2307710,
+        type: 3}
+      propertyPath: afterEffects.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7591608938516299652, guid: 0fce119190bf0449caee6a98f2307710,
         type: 3}
-      propertyPath: afterEffects.Array.data[0].key
-      value: isTreated
+      propertyPath: duration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591608938516299652, guid: 0fce119190bf0449caee6a98f2307710,
+        type: 3}
+      propertyPath: preConditions.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591608938516299652, guid: 0fce119190bf0449caee6a98f2307710,
+        type: 3}
+      propertyPath: afterEffects.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487532995, guid: 0fce119190bf0449caee6a98f2307710, type: 3}
+      propertyPath: preConditions.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487532995, guid: 0fce119190bf0449caee6a98f2307710, type: 3}
+      propertyPath: afterEffects.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fce119190bf0449caee6a98f2307710, type: 3}
