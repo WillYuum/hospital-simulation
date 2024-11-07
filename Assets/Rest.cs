@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoHome : GAction
+public class Rest : GAction
 {
     public override bool PrePerform()
     {
+
         return true;
     }
 
     public override bool PostPerform()
     {
-        Destroy(gameObject);
+        beliefs.RemoveState("exhausted");
         return true;
     }
 }
