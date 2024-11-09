@@ -6,6 +6,7 @@ public class Spawn : MonoBehaviour
 {
     public GameObject patientPrefab;
     public int numPatients;
+    public bool keepSpawning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +16,8 @@ public class Spawn : MonoBehaviour
             Instantiate(patientPrefab, this.transform.position, Quaternion.identity);
         }
 
-        Invoke("SpawnPatient", 5);
+        if(keepSpawning)
+            Invoke("SpawnPatient", 5);
     }
 
     void SpawnPatient()

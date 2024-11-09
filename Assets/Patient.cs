@@ -16,6 +16,16 @@ public class Patient : GAgent
 
         SubGoal s3 = new SubGoal("isHome", 1, true);
         goals.Add(s3, 1);
+
+        SubGoal s4 = new SubGoal("relief", 1, false);
+        goals.Add(s4, 2);
+
+        Invoke("NeedRelief", Random.Range(2, 5));
     }
 
+    void NeedRelief()
+    {
+        beliefs.ModifyState("busting", 0);
+        Invoke("NeedRelief", Random.Range(2, 5));
+    }
 }

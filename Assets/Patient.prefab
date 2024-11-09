@@ -1559,6 +1559,7 @@ GameObject:
   - component: {fileID: 542689857534846360}
   - component: {fileID: 7591608938516299652}
   - component: {fileID: 487532995}
+  - component: {fileID: 369774788}
   m_Layer: 0
   m_Name: Patient
   m_TagString: Untagged
@@ -1645,10 +1646,10 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: hasRegistered
-    value: 0
+    value: 1
   afterEffects:
   - key: isWaiting
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &4695191399491926587
@@ -1670,10 +1671,10 @@ MonoBehaviour:
   duration: 2
   preConditions:
   - key: hasArrived
-    value: 0
+    value: 1
   afterEffects:
   - key: hasRegistered
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &4695191399491926584
@@ -1722,10 +1723,10 @@ MonoBehaviour:
   duration: 5
   preConditions:
   - key: atHospital
-    value: 0
+    value: 1
   afterEffects:
   - key: isTreated
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &487532995
@@ -1747,9 +1748,38 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: isCured
-    value: 0
+    value: 1
   afterEffects:
   - key: isHome
+    value: 1
+  agent: {fileID: 0}
+  running: 0
+--- !u!114 &369774788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3191194391350855714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef07c309eabd46cb8e0d18b5956cf8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Go To Toilet
+  cost: 1
+  target: {fileID: 0}
+  targetTag: 
+  duration: 6
+  preConditions:
+  - key: FreeToilet
+    value: 0
+  - key: busting
+    value: 0
+  - key: atHospital
+    value: 0
+  afterEffects:
+  - key: relief
     value: 0
   agent: {fileID: 0}
   running: 0

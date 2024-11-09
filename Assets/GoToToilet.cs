@@ -6,7 +6,7 @@ public class GoToToilet : GAction
 {
     public override bool PrePerform()
     {
-        target = GWorld.Instance.RemoveToilet();
+        target = GWorld.Instance.GetQueue("toilets").RemoveResource();
         if (target == null)
             return false;
         inventory.AddItem(target);
@@ -16,9 +16,10 @@ public class GoToToilet : GAction
 
     public override bool PostPerform()
     {
-        GWorld.Instance.AddToilet(target);
+        GWorld.Instance.GetQueue("toilets").AddResource(target);
         inventory.RemoveItem(target);
         GWorld.Instance.GetWorld().ModifyState("FreeToilet", 1);
+        beliefs.RemoveState("busting");
         return true;
     }
 }
