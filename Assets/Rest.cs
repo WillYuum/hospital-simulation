@@ -6,12 +6,14 @@ public class Rest : GAction
 {
     public override bool PrePerform()
     {
+        Debug.Log("Performing Rest");
         return true;
     }
 
     public override bool PostPerform()
     {
         beliefs.RemoveState("exhausted");
+        Debug.Log("Finished Rest");
         return true;
     }
 }

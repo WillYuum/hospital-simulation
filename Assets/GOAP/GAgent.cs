@@ -49,13 +49,13 @@ public class GAgent : MonoBehaviour
 
     void LateUpdate()
     {
+
         if (currentAction != null && currentAction.running)
         {
             float distanceToTarget = Vector3.Distance(destination, this.transform.position);
-           //Debug.Log(currentAction.agent.hasPath + "   " + distanceToTarget);
-            if (distanceToTarget < 2f)//currentAction.agent.remainingDistance < 0.5f)
+            if (/*currentAction.agent.hasPath &&*/ distanceToTarget < 2f)//currentAction.agent.remainingDistance < 0.5f)
             {
-                Debug.Log("Distance to Goal: " + currentAction.agent.remainingDistance);
+               //Debug.Log("Distance to Goal: " + currentAction.agent.remainingDistance);
                 if (!invoked)
                 {
                     Invoke("CompleteAction", currentAction.duration);
@@ -103,11 +103,13 @@ public class GAgent : MonoBehaviour
                 {
                     currentAction.running = true;
 
-                    destination = currentAction.target.transform.position;
+                    //look for a Destination and use that
                     Transform dest = currentAction.target.transform.Find("Destination");
                     if (dest != null)
                         destination = dest.position;
-
+                    else
+                        destination = currentAction.target.transform.position;
+                       
                     currentAction.agent.SetDestination(destination);
                 }
             }

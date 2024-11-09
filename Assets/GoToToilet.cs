@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Research : GAction
+public class GoToToilet : GAction
 {
     public override bool PrePerform()
     {
-        target = GWorld.Instance.RemoveOffice();
+        target = GWorld.Instance.RemoveToilet();
         if (target == null)
             return false;
         inventory.AddItem(target);
-        GWorld.Instance.GetWorld().ModifyState("FreeOffice", -1);
-        Debug.Log("Researching");
+        GWorld.Instance.GetWorld().ModifyState("FreeToilet", -1);
         return true;
     }
 
     public override bool PostPerform()
     {
-        GWorld.Instance.AddOffice(target);
+        GWorld.Instance.AddToilet(target);
         inventory.RemoveItem(target);
-        GWorld.Instance.GetWorld().ModifyState("FreeOffice", 1);
-        Debug.Log("Fiished");
+        GWorld.Instance.GetWorld().ModifyState("FreeToilet", 1);
         return true;
     }
 }
