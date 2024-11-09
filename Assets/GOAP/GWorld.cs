@@ -46,6 +46,7 @@ public sealed class GWorld
     private static ResourceQueue cubicles;
     private static ResourceQueue offices;
     private static ResourceQueue toilets;
+    private static ResourceQueue puddles;
     private static Dictionary<string, ResourceQueue> resources = new Dictionary<string, ResourceQueue>();
 
     static GWorld()
@@ -59,6 +60,8 @@ public sealed class GWorld
         resources.Add("offices", offices);
         toilets = new ResourceQueue("Toilet", "FreeToilet", world);
         resources.Add("toilets", toilets);
+        puddles = new ResourceQueue("Puddle", "FreePuddle", world);
+        resources.Add("puddles", puddles);
 
 
         Time.timeScale = 5;
