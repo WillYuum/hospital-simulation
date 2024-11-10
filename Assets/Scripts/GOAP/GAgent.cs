@@ -9,12 +9,12 @@ public class SubGoal
     // Bool to store if goal should be removed after it has been achieved
     public bool remove;
     // Constructor
-    public SubGoal(string s, int i, bool r)
+    public SubGoal(string name, int priority, bool removeAfterDone)
     {
 
         sGoals = new Dictionary<string, int>();
-        sGoals.Add(s, i);
-        remove = r;
+        sGoals.Add(name, priority);
+        remove = removeAfterDone;
     }
 }
 
@@ -95,7 +95,7 @@ public class GAgent : MonoBehaviour
 
         if (distanceToTarget < 2f && !invoked)
         {
-            Invoke("CompleteAction", currentAction.duration);
+            Invoke(nameof(CompleteAction), currentAction.duration);
             invoked = true;
         }
     }
@@ -124,7 +124,8 @@ public class GAgent : MonoBehaviour
 
     private void HandleCompletedQueue()
     {
-        if (currentGoal != null && currentGoal.remove)
+        bool removeGoalAfterDone = currentGoal.remove == true;
+        if (currentGoal != null && removeGoalAfterDone)
         {
             goals.Remove(currentGoal);
         }
