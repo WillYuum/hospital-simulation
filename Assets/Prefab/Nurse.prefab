@@ -982,14 +982,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 177407082141715887}
-  - component: {fileID: 156335536}
-  - component: {fileID: 156335537}
-  - component: {fileID: 156335538}
-  - component: {fileID: 156335540}
-  - component: {fileID: 156335541}
-  - component: {fileID: 156335542}
-  - component: {fileID: 156335543}
-  - component: {fileID: 2259272424242556337}
+  - component: {fileID: 1618912315}
+  - component: {fileID: 1618912316}
+  - component: {fileID: 1618912317}
+  - component: {fileID: 1618912318}
+  - component: {fileID: 1618912320}
+  - component: {fileID: 8454386370049771602}
+  - component: {fileID: 1548668772}
+  - component: {fileID: 5353497781139665767}
   m_Layer: 0
   m_Name: Nurse
   m_TagString: Untagged
@@ -1012,7 +1012,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &156335536
+--- !u!195 &1618912315
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1022,7 +1022,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1034,7 +1034,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &156335537
+--- !u!114 &1618912316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf1d658f686e49a0bab2e9bfe02151d, type: 3}
+  m_Script: {fileID: 11500000, guid: b7d1290ff2542224d8566b15b3fdf51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: Get Patient
@@ -1057,11 +1057,11 @@ MonoBehaviour:
   - key: FreeCubicle
     value: 1
   afterEffects:
-  - key: patientPickedup
+  - key: patientPickedUp
     value: 1
   agent: {fileID: 0}
   running: 0
---- !u!114 &156335538
+--- !u!114 &1618912317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1070,12 +1070,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7c0890302d947c3a2830da7a95313a, type: 3}
+  m_Script: {fileID: 11500000, guid: 95d64e583ec7b91458713cea09d11aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actions: []
   currentAction: {fileID: 0}
---- !u!114 &156335540
+--- !u!114 &1618912318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1084,23 +1084,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281a3663957c14f49911588544d0e562, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d1c4cd2aa4dbae4a8fdcce26b4c7f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: Go To Cubicle
+  actionName: Go TO Cubicle
   cost: 1
   target: {fileID: 0}
   targetTag: 
   duration: 10
   preConditions:
-  - key: patientPickedup
+  - key: patientPickedUp
     value: 0
   afterEffects:
   - key: treatPatient
     value: 0
   agent: {fileID: 0}
   running: 0
---- !u!114 &156335541
+--- !u!114 &1618912320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1109,11 +1109,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3def950bfff4b41a3e666fc43dd0d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ce8d09e5c4f8684db3c65508231a11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisAgent: {fileID: 156335538}
---- !u!114 &156335542
+  thisAgent: {fileID: 1618912317}
+--- !u!114 &8454386370049771602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 715c377599e4c4afbb6ce451974fdde2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d933695dd788424b90f4c730b591760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: Rest
@@ -1138,7 +1138,7 @@ MonoBehaviour:
     value: 0
   agent: {fileID: 0}
   running: 0
---- !u!114 &156335543
+--- !u!114 &1548668772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cef07c309eabd46cb8e0d18b5956cf8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a5105a8135a39e43ba9c5747eaefc73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actionName: Go To Toilet
@@ -1165,7 +1165,7 @@ MonoBehaviour:
     value: 0
   agent: {fileID: 0}
   running: 0
---- !u!114 &2259272424242556337
+--- !u!114 &5353497781139665767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2618188073631541129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a1396676fb3f4df08ceeb71152097f4, type: 3}
+  m_Script: {fileID: 11500000, guid: f2a402aa9e522ba4aa668ac116998a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: busting
@@ -1184,7 +1184,7 @@ MonoBehaviour:
     type: 3}
   queueName: puddles
   worldState: FreePuddle
-  action: {fileID: 156335543}
+  action: {fileID: 1548668772}
 --- !u!1 &2629889911763255196
 GameObject:
   m_ObjectHideFlags: 0
