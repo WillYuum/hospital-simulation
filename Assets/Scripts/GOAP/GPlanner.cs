@@ -5,45 +5,45 @@ public class Node
 {
 
     //the parent node this node is connected to
-    public Node parent;
+    public Node Parent;
     //how much it cost to get to this node
-    public float cost;
+    public float Cost;
     //the state of the environment by the time the
     //action assigned to this node is achieved
-    public Dictionary<string, int> state;
+    public Dictionary<string, int> State;
     //the action this node represents in the plan
-    public GAction action;
+    public GAction Action;
 
     // Constructor
     public Node(Node parent, float cost, Dictionary<string, int> allStates, GAction action)
     {
 
-        this.parent = parent;
-        this.cost = cost;
-        this.state = new Dictionary<string, int>(allStates);
-        this.action = action;
+        Parent = parent;
+        Cost = cost;
+        State = new Dictionary<string, int>(allStates);
+        Action = action;
     }
 
     // Overloaded Constructor
     public Node(Node parent, float cost, Dictionary<string, int> allStates, Dictionary<string, int> beliefStates, GAction action)
     {
 
-        this.parent = parent;
-        this.cost = cost;
-        this.state = new Dictionary<string, int>(allStates);
+        Parent = parent;
+        Cost = cost;
+        State = new Dictionary<string, int>(allStates);
 
         //as well as the world states add the agents beliefs as states that can be
         //used to match preconditions
         foreach (KeyValuePair<string, int> b in beliefStates)
         {
 
-            if (!this.state.ContainsKey(b.Key))
+            if (!State.ContainsKey(b.Key))
             {
 
-                this.state.Add(b.Key, b.Value);
+                State.Add(b.Key, b.Value);
             }
         }
-        this.action = action;
+        Action = action;
     }
 }
 
@@ -92,7 +92,7 @@ public class GPlanner
 
                 cheapest = leaf;
             }
-            else if (leaf.cost < cheapest.cost)
+            else if (leaf.Cost < cheapest.Cost)
             {
 
                 cheapest = leaf;
@@ -104,13 +104,13 @@ public class GPlanner
         while (n != null)
         {
 
-            if (n.action != null)
+            if (n.Action != null)
             {
 
-                result.Insert(0, n.action);
+                result.Insert(0, n.Action);
             }
 
-            n = n.parent;
+            n = n.Parent;
         }
 
         //make a queue out of the actions represented by the nodes in the plan
@@ -143,11 +143,11 @@ public class GPlanner
         {
 
             //check their preconditions
-            if (action.IsAhievableGiven(parent.state))
+            if (action.IsAhievableGiven(parent.State))
             {
 
                 //get the state of the world if the parent node were to be executed
-                Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
+                Dictionary<string, int> currentState = new Dictionary<string, int>(parent.State);
 
                 //add the effects of this node to the nodes states to reflect what
                 //the world would look like if this node's action were executed
@@ -162,7 +162,7 @@ public class GPlanner
                 }
 
                 //create the next node in the branch and set this current node as the parent
-                Node node = new Node(parent, parent.cost + action.cost, currentState, action);
+                Node node = new Node(parent, parent.Cost + action.cost, currentState, action);
 
                 //if the current state of the world after doing this node's action is the goal
                 //this plan will achieve that goal and will become the agent's plan
