@@ -62,95 +62,117 @@ public class GAgent : MonoBehaviour
 
     void LateUpdate()
     {
-        //if there's a current action and it is still running
-        if (currentAction != null && currentAction.running)
+        if (IsCurrentActionRunning())
         {
-            // Find the distance to the target
-            float distanceToTarget = Vector3.Distance(destination, transform.position);
-            //Debug.Log(currentAction.agent.hasPath + "   " + distanceToTarget);
-            // Check the agent has a goal and has reached that goal
-            if (distanceToTarget < 2f)//currentAction.agent.remainingDistance < 0.5f)
-            {
-                // Debug.Log("Distance to Goal: " + currentAction.agent.remainingDistance);
-                if (!invoked)
-                {
-                    //if the action movement is complete wait
-                    //a certain duration for it to be completed
-                    Invoke("CompleteAction", currentAction.duration);
-                    invoked = true;
-                }
-            }
+            HandleRunningAction();
             return;
         }
 
-        // Check we have a planner and an actionQueue
         if (planner == null || actionQueue == null)
         {
-            planner = new GPlanner();
-
-            // Sort the goals in descending order and store them in sortedGoals
-            var sortedGoals = from entry in goals orderby entry.Value descending select entry;
-            //look through each goal to find one that has an achievable plan
-            foreach (KeyValuePair<SubGoal, int> sg in sortedGoals)
-            {
-                actionQueue = planner.plan(actions, sg.Key.sGoals, beliefs);
-                // If actionQueue is not = null then we must have a plan
-                if (actionQueue != null)
-                {
-                    // Set the current goal
-                    currentGoal = sg.Key;
-                    break;
-                }
-            }
+            CreateNewPlan();
         }
 
-        // Have we an actionQueue
-        if (actionQueue != null && actionQueue.Count == 0)
+        if (IsActionQueueComplete())
         {
-            // Check if currentGoal is removable
-            if (currentGoal.remove)
-            {
-                // Remove it
-                goals.Remove(currentGoal);
-            }
-            // Set planner = null so it will trigger a new one
-            planner = null;
+            HandleCompletedQueue();
         }
 
-        // Do we still have actions
-        if (actionQueue != null && actionQueue.Count > 0)
+        if (HasPendingActions())
         {
-            // Remove the top action of the queue and put it in currentAction
-            currentAction = actionQueue.Dequeue();
-            if (currentAction.PrePerform())
-            {
-                // Get our current object
-                if (currentAction.target == null && currentAction.targetTag != "")
-                    // Activate the current action
-                    currentAction.target = GameObject.FindWithTag(currentAction.targetTag);
-
-                if (currentAction.target != null)
-                {
-                    // Activate the current action
-                    currentAction.running = true;
-                    // Pass in the office then look for its cube
-                    destination = currentAction.target.transform.position;
-                    Transform dest = currentAction.target.transform.Find("Destination");
-                    // Check we got it
-                    if (dest != null)
-                        destination = dest.position;
-
-                    // Pass Unities AI the destination for the agent
-                    currentAction.agent.SetDestination(destination);
-                }
-            }
-            else
-            {
-                // Force a new plan
-                actionQueue = null;
-            }
-
+            ExecuteNextAction();
         }
-
     }
+
+    private bool IsCurrentActionRunning()
+    {
+        return currentAction != null && currentAction.running;
+    }
+
+    private void HandleRunningAction()
+    {
+        float distanceToTarget = Vector3.Distance(destination, transform.position);
+
+        if (distanceToTarget < 2f && !invoked)
+        {
+            Invoke("CompleteAction", currentAction.duration);
+            invoked = true;
+        }
+    }
+
+    private void CreateNewPlan()
+    {
+        planner = new GPlanner();
+        var sortedGoals = goals.OrderByDescending(entry => entry.Value);
+
+        foreach (KeyValuePair<SubGoal, int> sg in sortedGoals)
+        {
+            actionQueue = planner.plan(actions, sg.Key.sGoals, beliefs);
+
+            if (actionQueue != null)
+            {
+                currentGoal = sg.Key;
+                break;
+            }
+        }
+    }
+
+    private bool IsActionQueueComplete()
+    {
+        return actionQueue != null && actionQueue.Count == 0;
+    }
+
+    private void HandleCompletedQueue()
+    {
+        if (currentGoal != null && currentGoal.remove)
+        {
+            goals.Remove(currentGoal);
+        }
+        planner = null;
+    }
+
+    private bool HasPendingActions()
+    {
+        return actionQueue != null && actionQueue.Count > 0;
+    }
+
+    private void ExecuteNextAction()
+    {
+        currentAction = actionQueue.Dequeue();
+
+        if (currentAction.PrePerform())
+        {
+            SetCurrentActionTarget();
+            StartCurrentAction();
+        }
+        else
+        {
+            actionQueue = null;
+        }
+    }
+
+    private void SetCurrentActionTarget()
+    {
+        if (currentAction.target == null && !string.IsNullOrEmpty(currentAction.targetTag))
+        {
+            currentAction.target = GameObject.FindWithTag(currentAction.targetTag);
+        }
+    }
+
+    private void StartCurrentAction()
+    {
+        if (currentAction.target != null)
+        {
+            currentAction.running = true;
+            destination = GetDestinationPosition(currentAction.target);
+            currentAction.agent.SetDestination(destination);
+        }
+    }
+
+    Vector3 GetDestinationPosition(GameObject target)
+    {
+        Transform dest = target.transform.Find("Destination");
+        return dest != null ? dest.position : target.transform.position;
+    }
+
 }
