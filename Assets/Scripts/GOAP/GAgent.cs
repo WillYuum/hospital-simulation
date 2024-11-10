@@ -44,7 +44,7 @@ public class GAgent : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        GAction[] acts = this.GetComponents<GAction>();
+        GAction[] acts = GetComponents<GAction>();
         foreach (GAction a in acts)
             actions.Add(a);
     }
@@ -66,7 +66,7 @@ public class GAgent : MonoBehaviour
         if (currentAction != null && currentAction.running)
         {
             // Find the distance to the target
-            float distanceToTarget = Vector3.Distance(destination, this.transform.position);
+            float distanceToTarget = Vector3.Distance(destination, transform.position);
             //Debug.Log(currentAction.agent.hasPath + "   " + distanceToTarget);
             // Check the agent has a goal and has reached that goal
             if (distanceToTarget < 2f)//currentAction.agent.remainingDistance < 0.5f)
